@@ -9,6 +9,7 @@ import com.example.demo.repository.UserRepository;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -33,9 +34,12 @@ public class UserController {
     
     //method to test if user will be saved and print on the webpage
     @GetMapping("/add")
-    public String addUser(){
+    public String addUser(@RequestParam String name,@RequestParam String email, 
+            @RequestParam Integer age){
         User temp = new User();
-        temp.setName("Ruggery");
+        temp.setName(name);
+        temp.setEmail(email);
+        temp.setAge(age);
         userRepository.save(temp);
         return "User saved successfully!";
     }
