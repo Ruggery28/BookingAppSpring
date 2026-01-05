@@ -4,8 +4,11 @@
  */
 package com.example.demo.controller;
 
-import ch.qos.logback.core.model.Model;
+import com.example.demo.model.User;
+import com.example.demo.service.UserService;
+import java.util.List;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
@@ -15,10 +18,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class UserViewController {
     
-    
-    @GetMapping("/register")
-    public String registration(Model model){
-        return "user-form";
+    private final UserService userService;
+
+    public UserViewController(UserService userService) {
+        this.userService = userService;
     }
     
+    @GetMapping("/register")
+    public String registration() {
+        return "user-form";
+    }
+
+    @GetMapping("/users-list")
+    public String userList(Model model) {
+        List<User> allUsers = userService.getAllUsers();
+        model.addAttribute("users", allUsers);
+        return "user-list";
+    }
+
+    @GetMapping("/success-page")
+    public String showSuccess(){
+        return "success";
+    }
 }

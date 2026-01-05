@@ -43,6 +43,6 @@ public class UserController {
         temp.setEmail(email);
         temp.setAge(age);
         userService.registerUser(temp); //updated it here to registerUser
-        return "User saved successfully!";
+        return "redirect:/success-page"; //this will tell the brownser to go to that page
     }
 }
