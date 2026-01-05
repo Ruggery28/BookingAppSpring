@@ -6,6 +6,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
+import com.example.demo.service.UserService;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,16 +21,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/users") //the URL for this class will always be users.
 public class UserController {
 
-    private final UserRepository userRepository;
+    //I have updated here since we moved the old variable to handle inside userService
+    private final UserService userService;
 
     //constructor to receive a userRepository as parameter
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping
     public List<User> getAllUsers(){
-        return userRepository.findAll(); //this is a method from interface that writes a SELECT * from users.
+        return userService.getAllUsers(); 
     }
     
     //method to test if user will be saved and print on the webpage
@@ -40,7 +42,7 @@ public class UserController {
         temp.setName(name);
         temp.setEmail(email);
         temp.setAge(age);
-        userRepository.save(temp);
+        userService.registerUser(temp); //updated it here to registerUser
         return "User saved successfully!";
     }
 }
