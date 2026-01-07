@@ -9,6 +9,7 @@ import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,4 +46,11 @@ public class UserController {
         userService.registerUser(temp); //updated it here to registerUser
         return "redirect:/success-page"; //this will tell the brownser to go to that page
     }
+    
+    @GetMapping("/delete/{id}")
+    public String deleteUser(@PathVariable Integer id){
+        userService.deleteUserById(id);
+        return "redirect:/user-list";
+    }
+    
 }

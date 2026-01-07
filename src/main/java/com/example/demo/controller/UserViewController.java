@@ -17,13 +17,13 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 @Controller
 public class UserViewController {
-    
+
     private final UserService userService;
 
     public UserViewController(UserService userService) {
         this.userService = userService;
     }
-    
+
     @GetMapping("/register")
     public String registration() {
         return "user-form";
@@ -31,13 +31,15 @@ public class UserViewController {
 
     @GetMapping("/users-list")
     public String userList(Model model) {
+        //get the list from the user
         List<User> allUsers = userService.getAllUsers();
+        //add it to the model (name it users)
         model.addAttribute("users", allUsers);
         return "user-list";
     }
 
     @GetMapping("/success-page")
-    public String showSuccess(){
+    public String showSuccess() {
         return "success";
     }
 }
