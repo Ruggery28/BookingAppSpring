@@ -8,17 +8,19 @@ import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
 import java.util.List;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
  * @author Ruggery
  */
-@RestController
+@Controller //this will make the return be a file and not just a simple String
 @RequestMapping("/users") //the URL for this class will always be users.
 public class UserController {
 
@@ -31,26 +33,32 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> getAllUsers(){
-        return userService.getAllUsers(); 
+    @ResponseBody //this will try to get a raw data as we want.
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
     }
-    
-    //method to test if user will be saved and print on the webpage
+
+    //method that update and insert inside the database
     @GetMapping("/add")
-    public String addUser(@RequestParam String name,@RequestParam String email, 
-            @RequestParam Integer age){
+    public String addUser(@RequestParam(required = false) Integer id, @RequestParam String name,
+            @RequestParam String email, @RequestParam Integer age) {
         User temp = new User();
+        
+        if (id != null) {
+            temp.setId(id); //only set the id if it is not null
+        }
+
         temp.setName(name);
         temp.setEmail(email);
         temp.setAge(age);
         userService.registerUser(temp); //updated it here to registerUser
         return "redirect:/success-page"; //this will tell the brownser to go to that page
     }
-    
+
     @GetMapping("/delete/{id}")
-    public String deleteUser(@PathVariable Integer id){
+    public String deleteUser(@PathVariable Integer id) {
         userService.deleteUserById(id);
-        return "redirect:/user-list";
+        return "redirect:/users-list";
     }
-    
+
 }

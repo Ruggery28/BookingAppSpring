@@ -18,6 +18,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <th>Name</th>
                     <th>Email</th>
                     <th>Age</th>
+                    <th>Delete</th>
+                    <th>Edit</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,6 +28,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <td th:text="${u.email}"></td>
                     <td th:text="${u.age}"></td>
                     <td><a th:href="@{/users/delete/{id}(id=${u.id})}">Delete</a></td>
+                    <td><a th:href="@{/users/edit/{id}(id=${u.id})}">Edit</a></td>
                 </tr>
             </tbody>
         </table>

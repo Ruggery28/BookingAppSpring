@@ -44,4 +44,9 @@ public class UserService {
         userRepository.deleteById(id);
     }
     
+    public User getUserById(Integer id){
+        //this will return user by Id or null if he doesnt exist
+        return userRepository.findById(id).orElse(null);
+    }
+    
 }

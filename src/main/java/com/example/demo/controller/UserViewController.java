@@ -10,6 +10,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  *
@@ -42,4 +43,16 @@ public class UserViewController {
     public String showSuccess() {
         return "success";
     }
+    
+    @GetMapping("/users/edit/{id}")
+    public String showEditForm(@PathVariable Integer id, Model model){
+        User user = userService.getUserById(id);
+        //add the user object to the model so the HTML can see it
+        model.addAttribute("user", user);
+        return "user-form";
+    }
+    
+    
+    
+    
 }

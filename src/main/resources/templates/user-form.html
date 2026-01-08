@@ -13,16 +13,17 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <div><h1>Enter your data: </h1></div>
         <!-- this will send the data to the method we created in UserControler -->
         <!-- we are using method get now, because we are using @GetMapping in addUser -->
-        <form th:action="@{/users/add}" method="get"> 
+        <form action="/users/add" method="get"> 
+            <input type="hidden" name="id" th:value="${user != null ? user.id : ''}">
             
             <label>Name: </label>
-            <input type="text" name="name" required=""><br>
+            <input type="text" name="name" th:value="${user != null ? user.name : ''}" required=""><br>
             <label>Email: </label>
-            <input type="text" name="email"><br> 
+            <input type="text" name="email" th:value="${user != null ? user.email : ''}"><br> 
             <label>Age: </label>
-            <input type="text" name="age" required=""> <br>
+            <input type="text" name="age" th:value="${user != null ? user.age : ''}" required=""> <br>
             
-            <input type="submit">
+            <Button type="submit">Save Changes</button> 
             
         </form>
     </body>
