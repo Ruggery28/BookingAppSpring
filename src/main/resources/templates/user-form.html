@@ -8,23 +8,28 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <title>User Form</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" th:href="@{/css/style.css}"/>
     </head>
     <body>
-        <div><h1>Enter your data: </h1></div>
-        <!-- this will send the data to the method we created in UserControler -->
-        <!-- we are using method get now, because we are using @GetMapping in addUser -->
-        <form action="/users/add" method="get"> 
-            <input type="hidden" name="id" th:value="${user != null ? user.id : ''}">
-            
-            <label>Name: </label>
-            <input type="text" name="name" th:value="${user != null ? user.name : ''}" required=""><br>
-            <label>Email: </label>
-            <input type="text" name="email" th:value="${user != null ? user.email : ''}"><br> 
-            <label>Age: </label>
-            <input type="text" name="age" th:value="${user != null ? user.age : ''}" required=""> <br>
-            
-            <Button type="submit">Save Changes</button> 
-            
-        </form>
+        <div class="form-container">
+            <h1>Enter your data: </h1>
+            <!-- this will send the data to the method we created in UserControler -->
+            <!-- we are using method get now, because we are using @GetMapping in addUser -->
+            <form action="/users/add" method="get"> 
+                <input type="hidden" name="id" th:value="${user != null ? user.id : ''}">
+
+                <label>Name: </label>
+                <input type="text" name="name" th:value="${user != null ? user.name : ''}" required=""><br>
+                <label>Email: </label>
+                <input type="text" name="email" th:value="${user != null ? user.email : ''}"><br> 
+                <label>Age: </label>
+                <input type="text" name="age" th:value="${user != null ? user.age : ''}" required=""> <br>
+
+                <Button type="submit" class="btn btn-save">Save Changes</button> 
+
+                <a href="/users-list" class="btn btn-cancel">Cancel</a>
+
+            </form>
+        </div>
     </body>
 </html>
