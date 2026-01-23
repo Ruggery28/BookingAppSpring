@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.*;
 
 /**
  *
@@ -22,8 +23,17 @@ public class User {
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    
+    @NotBlank(message = "Name is required!")
+    @Size(min=2, max=50, message = "Name must be between 2 and 50 characters.")
     private String name;
+    
+    @Email(message = "Please, provide a valid email.")
+    @NotBlank(message = "Email is required!")
     private String email;
+    
+    @Min(value = 18, message = "You must bet at least 18 years old")
+    @Max(value = 120, message = "Please enter a valid age")
     private int age;
 
     //Empty constructor

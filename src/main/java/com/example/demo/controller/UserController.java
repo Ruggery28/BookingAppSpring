@@ -7,9 +7,13 @@ package com.example.demo.controller;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
+import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,18 +44,14 @@ public class UserController {
 
     //method that update and insert inside the database
     @GetMapping("/add")
-    public String addUser(@RequestParam(required = false) Integer id, @RequestParam String name,
-            @RequestParam String email, @RequestParam Integer age) {
-        User temp = new User();
-        
-        if (id != null) {
-            temp.setId(id); //only set the id if it is not null
-        }
+    public String addUser(
+            @Valid @ModelAttribute("user") User user, //Spring automatically maps parameters to this object and validates it
+            BindingResult result){ //This object holds the results of the validation (errors)
 
-        temp.setName(name);
-        temp.setEmail(email);
-        temp.setAge(age);
-        userService.registerUser(temp); //updated it here to registerUser
+        if (result.hasErrors()) {
+            return "user-form"; //if it catches an error it will return the form page
+        }
+        userService.registerUser(user);
         return "redirect:/success-page"; //this will tell the brownser to go to that page
     }
 
