@@ -22,7 +22,7 @@ public class User {
     
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id; //Integer instead of Int, because we need it to accept null as a value.
     
     @NotBlank(message = "Name is required!")
     @Size(min=2, max=50, message = "Name must be between 2 and 50 characters.")
@@ -41,11 +41,11 @@ public class User {
     }
 
     //Getters and Setters
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

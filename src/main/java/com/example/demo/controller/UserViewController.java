@@ -35,7 +35,7 @@ public class UserViewController {
         return "user-list";
     }
 
-    //Show the for for a new user
+    //Show the form for a new user
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
         // You MUST add an empty User object so the form has a 'target'
