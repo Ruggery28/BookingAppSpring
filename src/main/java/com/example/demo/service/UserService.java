@@ -49,4 +49,11 @@ public class UserService {
         return userRepository.findById(id).orElse(null);
     }
     
+    public List<User> searchUsers(String keyword) {
+        if (keyword != null && !keyword.trim().isEmpty()) {
+            return userRepository.findByNameContainingIgnoreCase(keyword);
+        }
+        return userRepository.findAll(); // Return everything if search is empty
+    }
+    
 }

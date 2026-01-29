@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -27,11 +28,12 @@ public class UserViewController {
 
     //Show the list of users
     @GetMapping("/users-list")
-    public String userList(Model model) {
-        //get the list from the user
-        List<User> allUsers = userService.getAllUsers();
-        //add it to the model (name it users)
-        model.addAttribute("users", allUsers);
+    public String userList(@RequestParam(required = false) String keyword, Model model) {
+        //The services handle the logic, 'should I search or show all'
+        List<User> users = userService.searchUsers(keyword);
+        
+        model.addAttribute("users", users);
+        model.addAttribute("keyword", keyword); // Keeps the word in the search box
         return "user-list";
     }
 

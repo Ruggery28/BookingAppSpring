@@ -5,6 +5,7 @@
 package com.example.demo.repository;
 
 import com.example.demo.model.User;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -16,8 +17,12 @@ import org.springframework.stereotype.Repository;
 /* This interface when connected with repository will automatic build the engine to
 communicate with Mysql and use all the CRUD system with User as they know id is the
 primary key.
-*/
+ */
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
-    //this stays empty
+
+    /*this will target the search inside the database:
+    findByName will look at the name fiel, Containing will find the text anywhere %name%,
+    and, IgnoreCase will just ignore upper or lower case*/
+    List<User> findByNameContainingIgnoreCase(String name);
 }
